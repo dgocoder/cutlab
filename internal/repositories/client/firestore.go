@@ -6,6 +6,7 @@ import (
 
 	"cloud.google.com/go/firestore"
 	"github.com/google/uuid"
+	"github.com/mitchellh/mapstructure"
 	"github.com/testd/cutlab/internal/core/domain"
 	"github.com/testd/cutlab/pkg/fstransform"
 )
@@ -23,7 +24,9 @@ func NewClientFirestoreRespository(firestoreClient *firestore.Client, ctx contex
 
 func (repo *ClientFirestoreRespository) Get(id uuid.UUID) (record domain.Client, err error) {
 	dsnap, _ := repo.client.Collection(collection).Doc(id.String()).Get(repo.ctx)
-	err = dsnap.DataTo(&record)
+	data := dsnap.Data()
+	err = mapstructure.Decode(data, &record)
+	// err = fstransform.DataTo(dsnap.Data(), &record)
 	if err != nil {
 		fmt.Println(err)
 		return record, err

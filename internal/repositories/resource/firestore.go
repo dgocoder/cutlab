@@ -23,7 +23,7 @@ func NewResourceFirestoreRespository(firestoreClient *firestore.Client, ctx cont
 
 func (repo *ResourceFirestoreRespository) Get(id uuid.UUID) (record domain.Resource, err error) {
 	dsnap, _ := repo.client.Collection(collection).Doc(id.String()).Get(repo.ctx)
-	err = dsnap.DataTo(&record)
+	err = fstransform.DataTo(dsnap.Data(), &record)
 	if err != nil {
 		fmt.Println(err)
 		return record, err

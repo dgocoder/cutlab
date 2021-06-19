@@ -23,7 +23,7 @@ func NewUserFirestoreRespository(firestoreClient *firestore.Client, ctx context.
 
 func (repo *UserFirestoreRespository) Get(id uuid.UUID) (record domain.User, err error) {
 	dsnap, _ := repo.client.Collection(collection).Doc(id.String()).Get(repo.ctx)
-	err = dsnap.DataTo(&record)
+	err = fstransform.DataTo(dsnap.Data(), &record)
 	if err != nil {
 		fmt.Println(err)
 		return record, err

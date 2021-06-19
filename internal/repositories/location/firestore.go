@@ -23,7 +23,7 @@ func NewLocationFirestoreRespository(firestoreClient *firestore.Client, ctx cont
 
 func (repo *LocationFirestoreRespository) Get(id uuid.UUID) (record domain.Location, err error) {
 	dsnap, _ := repo.client.Collection(collection).Doc(id.String()).Get(repo.ctx)
-	err = dsnap.DataTo(&record)
+	err = fstransform.DataTo(dsnap.Data(), &record)
 	if err != nil {
 		fmt.Println(err)
 		return record, err
