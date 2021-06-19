@@ -18,18 +18,18 @@ func NewServiceController(repo ports.ServiceRepository) *ServiceController {
 	}
 }
 
-func (srv *ServiceController) Get(id uuid.UUID) (domain.Service, error) {
-	service, err := srv.repo.Get(id)
+func (c *ServiceController) Get(id uuid.UUID) (domain.Service, error) {
+	service, err := c.repo.Get(id)
 	if err != nil {
 		return domain.Service{}, errors.New("get failed")
 	}
 	return service, nil
 }
 
-func (srv *ServiceController) Create(companyId uuid.UUID, locationId uuid.UUID, name string, description *string, duration int, feeAmount int, cancellationFeeAmount int, CancellationCutOff int) (domain.Service, error) {
+func (c *ServiceController) Create(companyId uuid.UUID, locationId uuid.UUID, name string, description *string, duration int, feeAmount int, cancellationFeeAmount int, CancellationCutOff int) (domain.Service, error) {
 	service := domain.NewService(companyId, locationId, name, description, duration, feeAmount, cancellationFeeAmount, CancellationCutOff)
 
-	if err := srv.repo.Save(service); err != nil {
+	if err := c.repo.Save(service); err != nil {
 		return domain.Service{}, errors.New("create service into repository has failed")
 	}
 	return service, nil

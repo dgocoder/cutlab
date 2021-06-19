@@ -35,7 +35,7 @@ func (hdl *HTTPHandler) Create(c echo.Context) (err error) {
 	body := domain.Event{}
 	c.Bind(&body)
 
-	event, err := hdl.eventController.Create(body.LocationID, body.ServiceID, body.ResourceID, body.CustomerID, body.StartAt, body.EndAt, body.Type)
+	event, err := hdl.eventController.Create(body.LocationID, body.ServiceID, body.ResourceID, body.ClientID, body.StartAt, body.EndAt, body.Type)
 	if err != nil {
 		c.JSON(500, "error")
 		return

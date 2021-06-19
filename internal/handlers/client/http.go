@@ -1,4 +1,4 @@
-package customerhandler
+package clienthandler
 
 import (
 	"fmt"
@@ -10,36 +10,36 @@ import (
 )
 
 type HTTPHandler struct {
-	customerController ports.CustomerController
+	clientController ports.ClientController
 }
 
-func NewHTTPHandler(customerController ports.CustomerController) *HTTPHandler {
+func NewHTTPHandler(clientController ports.ClientController) *HTTPHandler {
 	return &HTTPHandler{
-		customerController: customerController,
+		clientController: clientController,
 	}
 }
 
 func (hdl *HTTPHandler) Get(c echo.Context) (err error) {
 	id, _ := uuid.Parse(c.Param("id"))
-	customer, err := hdl.customerController.Get(id)
+	client, err := hdl.clientController.Get(id)
 	fmt.Println(err)
 	if err != nil {
 		c.JSON(500, "string")
 		return
 	}
 
-	return c.JSON(200, customer)
+	return c.JSON(200, client)
 }
 
 func (hdl *HTTPHandler) Create(c echo.Context) (err error) {
-	body := domain.Customer{}
+	body := domain.Client{}
 	c.Bind(&body)
 
-	customer, err := hdl.customerController.Create(body.Lastname, body.Firstname, body.Email)
+	client, err := hdl.clientController.Create(body.Lastname, body.Firstname, body.Email)
 	if err != nil {
 		c.JSON(500, "error")
 		return
 	}
 
-	return c.JSON(200, customer)
+	return c.JSON(200, client)
 }

@@ -14,5 +14,5 @@ type EventRepository interface {
 
 type EventController interface {
 	Get(id uuid.UUID) (domain.Event, error)
-	Create(locationId uuid.UUID, serviceId uuid.UUID, resourceId uuid.UUID, customerId uuid.UUID, startAt time.Time, endAt time.Time, eventType string) (domain.Event, error)
+	Create(locationId uuid.UUID, serviceId uuid.UUID, resourceId uuid.UUID, clientId uuid.UUID, startAt time.Time, endAt time.Time, eventType string) (domain.Event, error)
 }

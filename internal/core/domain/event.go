@@ -12,7 +12,7 @@ type Event struct {
 	ServiceID          uuid.UUID         `json:"serviceId"`
 	ResourceID         uuid.UUID         `json:"resourceId"`
 	ResourceImageURL   *string           `json:"resourceImageUrl"`
-	CustomerID         uuid.UUID         `json:"customerId"`
+	ClientID           uuid.UUID         `json:"clientId"`
 	CreatedAt          time.Time         `json:"createdAt"`
 	StartAt            time.Time         `json:"startAt"`
 	EndAt              time.Time         `json:"endAt"`
@@ -20,7 +20,7 @@ type Event struct {
 	ConfirmationNumber string            `json:"confirmationNumber"`
 	BookedBy           *uuid.UUID        `json:"bookedBy"`
 	Confirmed          bool              `json:"confirmed"`
-	CustomerMessage    string            `json:"customerMessage"`
+	ClientMessage      string            `json:"clientMessage"`
 	Notes              string            `json:"notes"`
 	LastModifiedOn     *time.Time        `json:"lastModifiedOn"`
 	LastModifiedBy     *time.Time        `json:"lastModifiedBy"`
@@ -42,13 +42,13 @@ type Repeat struct {
 	MonthType string `json:"monthType"`
 }
 
-func NewEvent(locationId uuid.UUID, serviceId uuid.UUID, resourceId uuid.UUID, customerId uuid.UUID, startAt time.Time, endAt time.Time, eventType string) Event {
+func NewEvent(locationId uuid.UUID, serviceId uuid.UUID, resourceId uuid.UUID, clientId uuid.UUID, startAt time.Time, endAt time.Time, eventType string) Event {
 	return Event{
 		ID:         uuid.New(),
 		LocationID: locationId,
 		ServiceID:  serviceId,
 		ResourceID: resourceId,
-		CustomerID: customerId,
+		ClientID:   clientId,
 		CreatedAt:  time.Now(),
 		StartAt:    startAt,
 		EndAt:      endAt,

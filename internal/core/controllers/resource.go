@@ -18,18 +18,18 @@ func NewResourceController(resourceRepository ports.ResourceRepository) *Resourc
 	}
 }
 
-func (srv *ResourceController) Get(id uuid.UUID) (domain.Resource, error) {
-	resource, err := srv.resourceRepository.Get(id)
+func (c *ResourceController) Get(id uuid.UUID) (domain.Resource, error) {
+	resource, err := c.resourceRepository.Get(id)
 	if err != nil {
 		return domain.Resource{}, errors.New("get failed")
 	}
 	return resource, nil
 }
 
-func (srv *ResourceController) Create(name string, locationId uuid.UUID, companyId uuid.UUID, email string) (domain.Resource, error) {
+func (c *ResourceController) Create(name string, locationId uuid.UUID, companyId uuid.UUID, email string) (domain.Resource, error) {
 	game := domain.NewResource(name, locationId, companyId, email)
 
-	if err := srv.resourceRepository.Save(game); err != nil {
+	if err := c.resourceRepository.Save(game); err != nil {
 		return domain.Resource{}, errors.New("create game into repository has failed")
 	}
 	return game, nil

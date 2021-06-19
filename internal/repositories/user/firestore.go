@@ -1,4 +1,4 @@
-package customerrepo
+package userrepo
 
 import (
 	"context"
@@ -10,18 +10,18 @@ import (
 	"github.com/testd/cutlab/pkg/fstransform"
 )
 
-type CustomerFirestoreRespository struct {
+type UserFirestoreRespository struct {
 	client *firestore.Client
 	ctx    context.Context
 }
 
-const collection = "customers"
+const collection = "users"
 
-func NewCustomerFirestoreRespository(firestoreClient *firestore.Client, ctx context.Context) *CustomerFirestoreRespository {
-	return &CustomerFirestoreRespository{client: firestoreClient, ctx: ctx}
+func NewUserFirestoreRespository(firestoreClient *firestore.Client, ctx context.Context) *UserFirestoreRespository {
+	return &UserFirestoreRespository{client: firestoreClient, ctx: ctx}
 }
 
-func (repo *CustomerFirestoreRespository) Get(id uuid.UUID) (record domain.Customer, err error) {
+func (repo *UserFirestoreRespository) Get(id uuid.UUID) (record domain.User, err error) {
 	dsnap, _ := repo.client.Collection(collection).Doc(id.String()).Get(repo.ctx)
 	err = dsnap.DataTo(&record)
 	if err != nil {
@@ -30,7 +30,7 @@ func (repo *CustomerFirestoreRespository) Get(id uuid.UUID) (record domain.Custo
 	}
 	return record, nil
 }
-func (repo *CustomerFirestoreRespository) Save(record domain.Customer) error {
+func (repo *UserFirestoreRespository) Save(record domain.User) error {
 	_, err := repo.client.Collection(collection).Doc(record.ID.String()).Set(repo.ctx, fstransform.ToFirestoreMap(record))
 	if err != nil {
 		return err
