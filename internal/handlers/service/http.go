@@ -5,7 +5,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/testd/cutlab/internal/core/domain"
 	"github.com/testd/cutlab/internal/core/ports"
 )
 
@@ -32,10 +31,10 @@ func (hdl *HTTPHandler) Get(c echo.Context) (err error) {
 }
 
 func (hdl *HTTPHandler) Create(c echo.Context) (err error) {
-	body := domain.Service{}
+	body := ports.CreateServiceView{}
 	c.Bind(&body)
 
-	service, err := hdl.serviceController.Create(body.CompanyID, body.LocationID, body.Name, body.Description, body.Duration, body.FeeAmount, body.CancellationFeeAmount, body.CancellationCutOff)
+	service, err := hdl.serviceController.Create(body)
 	if err != nil {
 		c.JSON(500, "error")
 		return

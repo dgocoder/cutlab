@@ -12,5 +12,17 @@ type ServiceRepository interface {
 
 type ServiceController interface {
 	Get(id uuid.UUID) (domain.Service, error)
-	Create(companyId uuid.UUID, locationId uuid.UUID, name string, description *string, duration int, feeAmount int, cancellationFeeAmount int, CancellationCutOff int) (domain.Service, error)
+	Create(params CreateServiceView) (domain.Service, error)
+	CreateMany(params []CreateServiceView) ([]domain.Service, error)
+}
+
+type CreateServiceView struct {
+	CompanyId             uuid.UUID
+	LocationId            uuid.UUID
+	Name                  string
+	Description           *string
+	Duration              int
+	FeeAmount             int
+	CancellationFeeAmount int
+	CancellationCutOff    int
 }

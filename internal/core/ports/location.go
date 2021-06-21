@@ -12,5 +12,11 @@ type LocationRepository interface {
 
 type LocationController interface {
 	Get(id uuid.UUID) (domain.Location, error)
-	Create(companyId uuid.UUID, name string) (domain.Location, error)
+	Create(params CreateLocationView) (domain.Location, error)
+}
+
+type CreateLocationView struct {
+	CompanyId     uuid.UUID
+	Name          *string
+	BusinessHours domain.Availability
 }

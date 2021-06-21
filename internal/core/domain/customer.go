@@ -31,6 +31,6 @@ func NewClient(email string, lastName string, firstName string) Client {
 		Email:     email,
 		Lastname:  lastName,
 		Firstname: firstName,
-		CreatedAt: time.Now().UTC(),
+		CreatedAt: time.Now(),
 	}
 }

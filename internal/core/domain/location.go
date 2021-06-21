@@ -3,16 +3,16 @@ package domain
 import "github.com/google/uuid"
 
 type Location struct {
-	ID               uuid.UUID          `json:"id"`
-	CompanyID        uuid.UUID          `json:"companyId"`
-	Name             string             `json:"name"`
-	Phone            *string            `json:"phone"`
-	Email            *string            `json:"email"`
-	Website          *string            `json:"website"`
-	ImageURL         *string            `json:"imageUrl"`
-	TimezoneID       *string            `json:"timezoneId"`
-	BusinessHours    Availability       `json:"businessHours"`
-	BusinessHolidays []BusinessHolidays `json:"businessHolidays"`
+	ID               uuid.UUID           `json:"id"`
+	CompanyID        uuid.UUID           `json:"companyId"`
+	Name             *string             `json:"name"`
+	Phone            *string             `json:"phone"`
+	Email            *string             `json:"email"`
+	Website          *string             `json:"website"`
+	ImageURL         *string             `json:"imageUrl"`
+	TimezoneID       *string             `json:"timezoneId"`
+	BusinessHours    Availability        `json:"businessHours"`
+	BusinessHolidays *[]BusinessHolidays `json:"businessHolidays"`
 }
 
 type Address struct {
@@ -81,10 +81,11 @@ type Availability struct {
 	Sun Sun `json:"sun"`
 }
 
-func NewLocation(companyId uuid.UUID, name string) Location {
+func NewLocation(companyId uuid.UUID, availability Availability, name *string) Location {
 	return Location{
-		ID:        uuid.New(),
-		CompanyID: companyId,
-		Name:      name,
+		ID:            uuid.New(),
+		CompanyID:     companyId,
+		Name:          name,
+		BusinessHours: availability,
 	}
 }

@@ -26,8 +26,8 @@ func (c *LocationController) Get(id uuid.UUID) (domain.Location, error) {
 	return location, nil
 }
 
-func (c *LocationController) Create(companyId uuid.UUID, name string) (domain.Location, error) {
-	location := domain.NewLocation(companyId, name)
+func (c *LocationController) Create(params ports.CreateLocationView) (domain.Location, error) {
+	location := domain.NewLocation(params.CompanyId, params.BusinessHours, params.Name)
 
 	if err := c.repo.Save(location); err != nil {
 		return domain.Location{}, errors.New("create location into repository has failed")

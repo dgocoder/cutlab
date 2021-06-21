@@ -18,18 +18,22 @@ type Company struct {
 	State         *string    `json:"state"`
 	PostalCode    *string    `json:"postalCode"`
 	Country       *string    `json:"country"`
-	Phone         *string    `json:"phone"`
-	Email         string     `json:"email"`
+	Phone         *Phone     `json:"phone"`
+	Email         *string    `json:"email"`
 	Website       *string    `json:"website"`
 	TimezoneID    *string    `json:"timezoneId"`
 }
 
-func NewCompany(name string, email string) Company {
+func NewCompany(name string, addressLine1 *string, addressLine2 *string, city *string, state *string, postalCode *string, country *string) Company {
 	return Company{
-		ID:        uuid.New(),
-		Name:      name,
-		Email:     email,
-		CreatedAt: time.Now(),
-		DeletedAt: nil,
+		ID:           uuid.New(),
+		Name:         name,
+		CreatedAt:    time.Now(),
+		AddressLine1: addressLine1,
+		AddressLine2: addressLine2,
+		City:         city,
+		State:        state,
+		PostalCode:   postalCode,
+		Country:      country,
 	}
 }

@@ -12,5 +12,16 @@ type CompanyRepository interface {
 
 type CompanyController interface {
 	Get(id uuid.UUID) (domain.Company, error)
-	Create(name string, email string) (domain.Company, error)
+	Create(params CreateCompanyController) (domain.Company, error)
+}
+
+type CreateCompanyController struct {
+	OwnerId      uuid.UUID
+	Name         string
+	AddressLine1 *string
+	AddressLine2 *string
+	City         *string
+	State        *string
+	PostalCode   *string
+	Country      *string
 }
